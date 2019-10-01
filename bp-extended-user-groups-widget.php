@@ -92,6 +92,11 @@ class BP_Extended_User_Groups_Widget_Helper {
 	 * Register widget.
 	 */
 	public function register_widget() {
+
+		if ( ! bp_is_active( 'groups' ) ) {
+			return;
+		}
+
 		register_widget( 'BP_Extended_User_Groups_Widget' );
 	}
 
