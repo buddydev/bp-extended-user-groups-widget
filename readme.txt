@@ -36,6 +36,9 @@ For more details, Please see the plugin documentation page.
 2. Groups listing  screenshot-2.png
 
 == Changelog ==
+= 1.0.3 =
+* Cleanup.
+* Filter for display or logged in user. Props @raviousprime.
 
 = 1.0.3 =
 * Fix the list when using default theme style.
