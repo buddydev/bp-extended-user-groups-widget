@@ -34,12 +34,13 @@ class BP_Extended_User_Groups_Widget extends WP_Widget {
 
 		// don't show to non logged in user if is not BuddyPress user page.
 		$defaults = array(
-			'title'     => __( 'Your Groups', 'bp-extended-user-groups-widget' ),
-			'groups_of' => 'loggedin',
-			'list_type' => 'member',
-			'type'      => 'active',
-			'order'     => 'ASC',
-			'limit'     => 5,
+			'title'      => __( 'Your Groups', 'bp-extended-user-groups-widget' ),
+			'groups_of'  => 'loggedin',
+			'list_type'  => 'member',
+			'group_type' => '',
+			'type'       => 'active',
+			'order'      => 'ASC',
+			'limit'      => 5,
 		);
 
 		$instance = wp_parse_args( (array) $instance, $defaults );
@@ -66,11 +67,12 @@ class BP_Extended_User_Groups_Widget extends WP_Widget {
 		echo $args['before_title'] . $title . $args['after_title'];
 
 		$group_args = array(
-			'user_id'  => $user_id,
-			'type'     => $instance['type'],
-			'order'    => $instance['order'],
-			'per_page' => $instance['limit'],
-			'max'      => $instance['limit'],
+			'user_id'    => $user_id,
+			'type'       => $instance['type'],
+			'group_type' => $instance['group_type'],
+			'order'      => $instance['order'],
+			'per_page'   => $instance['limit'],
+			'max'        => $instance['limit'],
 		);
 
 		// modify list for groups  when we need t list all groups of which the current user is admin.
@@ -185,13 +187,14 @@ class BP_Extended_User_Groups_Widget extends WP_Widget {
 	 */
 	public function update( $new_instance, $old_instance ) {
 
-		$instance              = $old_instance;
-		$instance['title']     = strip_tags( $new_instance['title'] );
-		$instance['groups_of'] = strip_tags( $new_instance['groups_of'] );
-		$instance['type']      = strip_tags( $new_instance['type'] );
-		$instance['order']     = strip_tags( $new_instance['order'] );
-		$instance['limit']     = strip_tags( $new_instance['limit'] );
-		$instance['list_type'] = $new_instance['list_type'];
+		$instance               = $old_instance;
+		$instance['title']      = strip_tags( $new_instance['title'] );
+		$instance['groups_of']  = strip_tags( $new_instance['groups_of'] );
+		$instance['type']       = strip_tags( $new_instance['type'] );
+		$instance['order']      = strip_tags( $new_instance['order'] );
+		$instance['limit']      = strip_tags( $new_instance['limit'] );
+		$instance['list_type']  = $new_instance['list_type'];
+		$instance['group_type'] = $new_instance['group_type'];
 
 		return $instance;
 
@@ -205,22 +208,24 @@ class BP_Extended_User_Groups_Widget extends WP_Widget {
 	public function form( $instance ) {
 
 		$defaults = array(
-			'title'     => __( 'Your Groups', 'bp-extended-user-groups-widget' ),
-			'groups_of' => 'loggedin',
-			'list_type' => 'member',
-			'type'      => 'active',
-			'order'     => 'ASC',
-			'limit'     => 5,
+			'title'      => __( 'Your Groups', 'bp-extended-user-groups-widget' ),
+			'groups_of'  => 'loggedin',
+			'list_type'  => 'member',
+			'group_type' => '',
+			'type'       => 'active',
+			'order'      => 'ASC',
+			'limit'      => 5,
 		);
 
 		$instance = wp_parse_args( (array) $instance, $defaults );
 
-		$title     = strip_tags( $instance['title'] );
-		$groups_of = strip_tags( $instance['groups_of'] );
-		$limit     = strip_tags( $instance['limit'] );
-		$type      = strip_tags( $instance['type'] );
-		$order     = strip_tags( $instance['order'] );
-		$list_type = $instance['list_type'];
+		$title              = strip_tags( $instance['title'] );
+		$groups_of          = strip_tags( $instance['groups_of'] );
+		$limit              = strip_tags( $instance['limit'] );
+		$type               = strip_tags( $instance['type'] );
+		$order              = strip_tags( $instance['order'] );
+		$list_type          = $instance['list_type'];
+		$selcted_group_type = $instance['group_type'];
 
 		?>
         <p>
@@ -260,6 +265,23 @@ class BP_Extended_User_Groups_Widget extends WP_Widget {
                 <?php _e( 'Admin', 'bp-extended-user-groups-widget' ); ?>
             </label>
         </p>
+
+        <?php if ( $group_types = $this->get_group_types() ) : ?>
+
+        <p>
+            <label for="<?php echo $this->get_field_id( 'group_type' ); ?>">
+                    <?php _e( 'From Group Type: ', 'bp-extended-user-groups-widget' ); ?>
+            </label>
+
+            <select id="<?php echo $this->get_field_id( 'group_type' ); ?>" name="<?php echo $this->get_field_name( 'group_type' ); ?>">
+		        <option value=""><?php _e( 'Select Group Type: ', 'bp-extended-user-groups-widget' ); ?></option>
+                <?php foreach ( $group_types as $group_type => $name ) : ?>
+                    <option value="<?php echo esc_attr( $group_type ); ?>" <?php selected( $selcted_group_type, $group_type ); ?>><?php echo esc_html( $name ); ?></option>
+		        <?php endforeach; ?>
+            </select>
+        </p>
+
+        <?php endif; ?>
 
         <p>
             <label for="<?php echo $this->get_field_id( 'type' ); ?>">
@@ -312,4 +334,19 @@ class BP_Extended_User_Groups_Widget extends WP_Widget {
 		<?php
 	}
 
+	/**
+	 * Get group types.
+	 *
+	 * @return array
+	 */
+	private function get_group_types() {
+
+		$group_types = array();
+
+		foreach ( bp_groups_get_group_types( array(), 'objects' ) as $group_type => $group_type_obj ) {
+			$group_types[ $group_type ] = $group_type_obj->labels['name'];
+		}
+
+		return $group_types;
+	}
 }
