@@ -225,7 +225,7 @@ class BP_Extended_User_Groups_Widget extends WP_Widget {
 		?>
         <p>
             <label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>">
-				<?php _e( 'Title:', 'bp-extended-user-groups-widget' ); ?>
+				<?php _e( 'Title: ', 'bp-extended-user-groups-widget' ); ?>
                 <input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>"
                        name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text"
                        value="<?php echo esc_attr( $title ); ?>" style="width: 100%"/>
@@ -236,6 +236,7 @@ class BP_Extended_User_Groups_Widget extends WP_Widget {
             <label for="<?php echo esc_attr( $this->get_field_id( 'groups_of' ) ); ?>">
 				<?php _e( 'List Groups of: ', 'bp-extended-user-groups-widget' ); ?>
             </label>
+            <br>
             <label>
                 <input name="<?php echo esc_attr( $this->get_field_name( 'groups_of' ) ); ?>" type="radio" value="loggedin" <?php checked( $groups_of, 'loggedin' ); ?> />
                 <?php _e( 'LoggedIn User', 'bp-extended-user-groups-widget' ); ?>
@@ -262,7 +263,7 @@ class BP_Extended_User_Groups_Widget extends WP_Widget {
 
         <p>
             <label for="<?php echo $this->get_field_id( 'type' ); ?>">
-				<?php _e( 'List Type', 'bp-extended-user-groups-widget' ); ?>
+				<?php _e( 'List Type: ', 'bp-extended-user-groups-widget' ); ?>
             </label>
             <select name="<?php echo $this->get_field_name( 'type' ); ?>"
                     id="<?php echo $this->get_field_id( 'type' ); ?>">
@@ -289,7 +290,7 @@ class BP_Extended_User_Groups_Widget extends WP_Widget {
 
         <p>
             <label for="<?php echo $this->get_field_id( 'order' ); ?>">
-				<?php _e( 'Order', 'bp-extended-user-groups-widget' ); ?>
+				<?php _e( 'Order: ', 'bp-extended-user-groups-widget' ); ?>
             </label>
             <select name="<?php echo $this->get_field_name( 'order' ); ?>"
                     id="<?php echo $this->get_field_id( 'order' ); ?>">
@@ -304,7 +305,7 @@ class BP_Extended_User_Groups_Widget extends WP_Widget {
 
         <p>
             <label for="<?php echo $this->get_field_id( 'limit' ); ?>">
-				<?php _e( 'Limit Group To Show:', 'bp-extended-user-groups-widget' ); ?>
+				<?php _e( 'Limit Group To Show: ', 'bp-extended-user-groups-widget' ); ?>
                 <input id="<?php echo $this->get_field_name( 'limit' ); ?>" name="<?php echo $this->get_field_name( 'limit' ); ?>" type="text" value="<?php echo esc_attr( $limit ); ?>" style="width: 30%"/>
             </label>
         </p>
