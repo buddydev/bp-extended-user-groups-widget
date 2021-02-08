@@ -3,7 +3,7 @@ Contributors: buddydev,raviousprime,sbrajesh
 Tags: buddypress, group widget
 Requires at least: 4.5.0
 Tested up to: 5.2.3
-Stable tag: 1.0.4
+Stable tag: 1.0.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -36,7 +36,11 @@ For more details, Please see the plugin documentation page.
 2. Groups listing  screenshot-2.png
 
 == Changelog ==
-= 1.0.3 =
+
+= 1.0.5 =
+* Added group type support.
+
+= 1.0.4 =
 * Cleanup.
 * Filter for display or logged in user. Props @raviousprime.
 
