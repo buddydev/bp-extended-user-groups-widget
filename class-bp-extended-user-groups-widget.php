@@ -254,7 +254,7 @@ class BP_Extended_User_Groups_Widget extends WP_Widget {
 
         <p>
             <label for="<?php echo esc_attr( $this->get_field_id( 'list_type' ) ); ?>">
-				<?php _e( 'In Group User is: ', 'bp-extended-user-groups-widget' ); ?>
+				<?php _e( 'In Group User is a: ', 'bp-extended-user-groups-widget' ); ?>
             </label>
             <label>
                 <input name="<?php echo esc_attr( $this->get_field_name( 'list_type' ) ); ?>" type="radio" value="member" <?php checked( $list_type, 'member' ); ?> />
@@ -272,7 +272,7 @@ class BP_Extended_User_Groups_Widget extends WP_Widget {
             <label for="<?php echo $this->get_field_id( 'group_type' ); ?>">
                     <?php _e( 'From Group Type: ', 'bp-extended-user-groups-widget' ); ?>
             </label>
-
+            <br>
             <select id="<?php echo $this->get_field_id( 'group_type' ); ?>" name="<?php echo $this->get_field_name( 'group_type' ); ?>">
 		        <option value=""><?php _e( 'Select Group Type: ', 'bp-extended-user-groups-widget' ); ?></option>
                 <?php foreach ( $group_types as $group_type => $name ) : ?>
@@ -287,6 +287,7 @@ class BP_Extended_User_Groups_Widget extends WP_Widget {
             <label for="<?php echo $this->get_field_id( 'type' ); ?>">
 				<?php _e( 'List Type: ', 'bp-extended-user-groups-widget' ); ?>
             </label>
+            <br>
             <select name="<?php echo $this->get_field_name( 'type' ); ?>"
                     id="<?php echo $this->get_field_id( 'type' ); ?>">
 
@@ -314,6 +315,7 @@ class BP_Extended_User_Groups_Widget extends WP_Widget {
             <label for="<?php echo $this->get_field_id( 'order' ); ?>">
 				<?php _e( 'Order: ', 'bp-extended-user-groups-widget' ); ?>
             </label>
+            <br>
             <select name="<?php echo $this->get_field_name( 'order' ); ?>"
                     id="<?php echo $this->get_field_id( 'order' ); ?>">
                 <option value="ASC" <?php selected( 'ASC', $order, true ) ?>>
