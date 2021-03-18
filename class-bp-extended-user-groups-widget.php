@@ -201,8 +201,8 @@ class BP_Extended_User_Groups_Widget extends WP_Widget {
 	}
 
 	/**
-     * Show widget form.
-     *
+	 * Show widget form.
+	 *
 	 * @param array $instance instance.
 	 */
 	public function form( $instance ) {
@@ -211,7 +211,7 @@ class BP_Extended_User_Groups_Widget extends WP_Widget {
 			'title'      => __( 'Your Groups', 'bp-extended-user-groups-widget' ),
 			'groups_of'  => 'loggedin',
 			'list_type'  => 'member',
-			'group_type' => '',
+			'group_type' => array(),
 			'type'       => 'active',
 			'order'      => 'ASC',
 			'limit'      => 5,
@@ -225,7 +225,7 @@ class BP_Extended_User_Groups_Widget extends WP_Widget {
 		$type               = strip_tags( $instance['type'] );
 		$order              = strip_tags( $instance['order'] );
 		$list_type          = $instance['list_type'];
-		$selcted_group_type = $instance['group_type'];
+		$selcted_group_type = (array) $instance['group_type'];
 
 		?>
         <p>
@@ -273,12 +273,12 @@ class BP_Extended_User_Groups_Widget extends WP_Widget {
                     <?php _e( 'From Group Type: ', 'bp-extended-user-groups-widget' ); ?>
             </label>
             <br>
-            <select id="<?php echo $this->get_field_id( 'group_type' ); ?>" name="<?php echo $this->get_field_name( 'group_type' ); ?>">
-		        <option value=""><?php _e( 'Select Group Type: ', 'bp-extended-user-groups-widget' ); ?></option>
-                <?php foreach ( $group_types as $group_type => $name ) : ?>
-                    <option value="<?php echo esc_attr( $group_type ); ?>" <?php selected( $selcted_group_type, $group_type ); ?>><?php echo esc_html( $name ); ?></option>
-		        <?php endforeach; ?>
-            </select>
+	        <?php foreach ( $group_types as $group_type => $name ) : ?>
+            <label>
+                    <input type="checkbox" id="<?php echo $this->get_field_id( 'group_type' ); ?>" name="<?php echo $this->get_field_name( 'group_type' ); ?>[]" value="<?php echo esc_attr( $group_type ); ?>" <?php checked( in_array( $group_type, $selcted_group_type ), true ); ?> />
+                <?php echo esc_html( $name ); ?>
+            </label><br>
+	        <?php endforeach; ?>
         </p>
 
         <?php endif; ?>
